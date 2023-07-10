@@ -1,7 +1,7 @@
 ;********************************************************************************
-;* File Name          : startup_stm32u5a5xx.s
+;* File Name          : startup_stm32u5f9xx.s
 ;* Author             : MCD Application Team
-;* Description        : STM32U5A5xx Ultra Low Power Devices vector
+;* Description        : STM32U5F9xx Ultra Low Power Devices vector
 ;*                      This module performs:
 ;*                      - Set the initial SP
 ;*                      - Set the initial PC == _iar_program_start,
@@ -14,7 +14,7 @@
 ;*******************************************************************************
 ;* @attention
 ;*
-;* Copyright (c) 2022 STMicroelectronics.
+;* Copyright (c) 2023 STMicroelectronics.
 ;* All rights reserved.
 ;*
 ;* This software is licensed under terms that can be found in the LICENSE file
@@ -102,7 +102,7 @@ __vector_table
         DCD     EXTI14_IRQHandler                ; EXTI Line14 interrupt
         DCD     EXTI15_IRQHandler                ; EXTI Line15 interrupt
         DCD     IWDG_IRQHandler                  ; IWDG global interrupt
-        DCD     SAES_IRQHandler                  ; Secure AES global interrupt
+        DCD     0                                ; Reserved
         DCD     GPDMA1_Channel0_IRQHandler       ; GPDMA1 Channel 0 global interrupt
         DCD     GPDMA1_Channel1_IRQHandler       ; GPDMA1 Channel 1 global interrupt
         DCD     GPDMA1_Channel2_IRQHandler       ; GPDMA1 Channel 2 global interrupt
@@ -167,11 +167,11 @@ __vector_table
         DCD     SAI1_IRQHandler                  ; Serial Audio Interface 1 global interrupt
         DCD     SAI2_IRQHandler                  ; Serial Audio Interface 2 global interrupt
         DCD     TSC_IRQHandler                   ; Touch Sense Controller global interrupt
-        DCD     AES_IRQHandler                   ; AES global interrupt
+        DCD     0                                ; Reserved
         DCD     RNG_IRQHandler                   ; RNG global interrupt
         DCD     FPU_IRQHandler                   ; FPU global interrupt
         DCD     HASH_IRQHandler                  ; HASH global interrupt
-        DCD     PKA_IRQHandler                   ; PKA global interrupt
+        DCD     0                                ; Reserved
         DCD     LPTIM3_IRQHandler                ; LPTIM3 global interrupt
         DCD     SPI3_IRQHandler                  ; SPI3 global interrupt
         DCD     I2C4_ER_IRQHandler               ; I2C4 Error interrupt
@@ -182,8 +182,8 @@ __vector_table
         DCD     MDF1_FLT3_IRQHandler             ; MDF1 Filter 3 global interrupt
         DCD     UCPD1_IRQHandler                 ; UCPD1 global interrupt
         DCD     ICACHE_IRQHandler                ; Instruction cache global interrupt
-        DCD     OTFDEC1_IRQHandler               ; OTFDEC1 global interrupt
-        DCD     OTFDEC2_IRQHandler               ; OTFDEC2 global interrupt
+        DCD     0                                ; Reserved
+        DCD     0                                ; Reserved
         DCD     LPTIM4_IRQHandler                ; LPTIM4 global interrupt
         DCD     DCACHE1_IRQHandler               ; Data cache global interrupt
         DCD     ADF1_IRQHandler                  ; ADF interrupt
@@ -206,6 +206,15 @@ __vector_table
         DCD     I2C6_ER_IRQHandler               ; I2C6 error interrupt
         DCD     I2C6_EV_IRQHandler               ; I2C6 event interrupt
         DCD     HSPI1_IRQHandler                 ; HSPI1 global interrupt
+        DCD     GPU2D_IRQHandler                 ; GPU2D global interrupt
+        DCD     GPU2D_ER_IRQHandler              ; GPU2D error interrupt
+        DCD     GFXMMU_IRQHandler                ; GFXMMU global interrupt
+        DCD     LTDC_IRQHandler                  ; LCD-TFT global interrupt
+        DCD     LTDC_ER_IRQHandler               ; LCD-TFT error interrupt
+        DCD     DSI_IRQHandler                   ; DSIHOST global interrupt
+        DCD     DCACHE2_IRQHandler               ; GPU2D Data cache global interrupt
+        DCD     GFXTIM_IRQHandler                ; GFXTIM global interrupt
+        DCD     JPEG_IRQHandler                  ; JPEG sync interrupt
 
 __Vectors_End
 
@@ -414,11 +423,6 @@ EXTI15_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 IWDG_IRQHandler
         B IWDG_IRQHandler
-
-        PUBWEAK SAES_IRQHandler
-        SECTION .text:CODE:NOROOT:REORDER(1)
-SAES_IRQHandler
-        B SAES_IRQHandler
 
         PUBWEAK GPDMA1_Channel0_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
@@ -740,11 +744,6 @@ SAI2_IRQHandler
 TSC_IRQHandler
         B TSC_IRQHandler
 
-        PUBWEAK AES_IRQHandler
-        SECTION .text:CODE:NOROOT:REORDER(1)
-AES_IRQHandler
-        B AES_IRQHandler
-
         PUBWEAK RNG_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 RNG_IRQHandler
@@ -759,11 +758,6 @@ FPU_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 HASH_IRQHandler
         B HASH_IRQHandler
-
-        PUBWEAK PKA_IRQHandler
-        SECTION .text:CODE:NOROOT:REORDER(1)
-PKA_IRQHandler
-        B PKA_IRQHandler
 
         PUBWEAK LPTIM3_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
@@ -814,16 +808,6 @@ UCPD1_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 ICACHE_IRQHandler
         B ICACHE_IRQHandler
-
-        PUBWEAK OTFDEC1_IRQHandler
-        SECTION .text:CODE:NOROOT:REORDER(1)
-OTFDEC1_IRQHandler
-        B OTFDEC1_IRQHandler
-
-        PUBWEAK OTFDEC2_IRQHandler
-        SECTION .text:CODE:NOROOT:REORDER(1)
-OTFDEC2_IRQHandler
-        B OTFDEC2_IRQHandler
 
         PUBWEAK LPTIM4_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
@@ -934,5 +918,50 @@ I2C6_EV_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 HSPI1_IRQHandler
         B HSPI1_IRQHandler
+
+        PUBWEAK GPU2D_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GPU2D_IRQHandler
+        B GPU2D_IRQHandler
+
+        PUBWEAK GPU2D_ER_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GPU2D_ER_IRQHandler
+        B GPU2D_ER_IRQHandler
+
+        PUBWEAK GFXMMU_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GFXMMU_IRQHandler
+        B GPU2D_ER_IRQHandler 
+
+        PUBWEAK LTDC_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+LTDC_IRQHandler
+        B LTDC_IRQHandler
+
+        PUBWEAK LTDC_ER_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+LTDC_ER_IRQHandler
+        B LTDC_ER_IRQHandler
+
+        PUBWEAK DSI_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+DSI_IRQHandler
+        B DSI_IRQHandler
+
+        PUBWEAK DCACHE2_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+DCACHE2_IRQHandler
+        B DCACHE2_IRQHandler
+
+        PUBWEAK GFXTIM_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GFXTIM_IRQHandler
+        B GFXTIM_IRQHandler
+
+        PUBWEAK JPEG_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+JPEG_IRQHandler
+        B JPEG_IRQHandler
 
         END

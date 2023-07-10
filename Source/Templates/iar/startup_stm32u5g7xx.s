@@ -1,7 +1,7 @@
 ;********************************************************************************
-;* File Name          : startup_stm32u5a5xx.s
+;* File Name          : startup_stm32u5g7xx.s
 ;* Author             : MCD Application Team
-;* Description        : STM32U5A5xx Ultra Low Power Devices vector
+;* Description        : STM32U5G7xx Ultra Low Power Devices vector
 ;*                      This module performs:
 ;*                      - Set the initial SP
 ;*                      - Set the initial PC == _iar_program_start,
@@ -14,7 +14,7 @@
 ;*******************************************************************************
 ;* @attention
 ;*
-;* Copyright (c) 2022 STMicroelectronics.
+;* Copyright (c) 2023 STMicroelectronics.
 ;* All rights reserved.
 ;*
 ;* This software is licensed under terms that can be found in the LICENSE file
@@ -206,6 +206,15 @@ __vector_table
         DCD     I2C6_ER_IRQHandler               ; I2C6 error interrupt
         DCD     I2C6_EV_IRQHandler               ; I2C6 event interrupt
         DCD     HSPI1_IRQHandler                 ; HSPI1 global interrupt
+        DCD     GPU2D_IRQHandler                 ; GPU2D global interrupt
+        DCD     GPU2D_ER_IRQHandler              ; GPU2D error interrupt
+        DCD     GFXMMU_IRQHandler                ; GFXMMU global interrupt
+        DCD     LTDC_IRQHandler                  ; LCD-TFT global interrupt
+        DCD     LTDC_ER_IRQHandler               ; LCD-TFT error interrupt
+        DCD     0                                ; Reserved
+        DCD     DCACHE2_IRQHandler               ; GPU2D Data cache global interrupt
+        DCD     GFXTIM_IRQHandler                ; GFXTIM global interrupt
+        DCD     JPEG_IRQHandler                  ; JPEG sync interrupt
 
 __Vectors_End
 
@@ -934,5 +943,45 @@ I2C6_EV_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
 HSPI1_IRQHandler
         B HSPI1_IRQHandler
+
+        PUBWEAK GPU2D_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GPU2D_IRQHandler
+        B GPU2D_IRQHandler
+
+        PUBWEAK GPU2D_ER_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GPU2D_ER_IRQHandler
+        B GPU2D_ER_IRQHandler
+
+        PUBWEAK GFXMMU_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GFXMMU_IRQHandler
+        B GPU2D_ER_IRQHandler 
+
+        PUBWEAK LTDC_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+LTDC_IRQHandler
+        B LTDC_IRQHandler
+
+        PUBWEAK LTDC_ER_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+LTDC_ER_IRQHandler
+        B LTDC_ER_IRQHandler
+
+        PUBWEAK DCACHE2_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+DCACHE2_IRQHandler
+        B DCACHE2_IRQHandler
+
+        PUBWEAK GFXTIM_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+GFXTIM_IRQHandler
+        B GFXTIM_IRQHandler
+
+        PUBWEAK JPEG_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+JPEG_IRQHandler
+        B JPEG_IRQHandler
 
         END
