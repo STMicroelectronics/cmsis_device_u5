@@ -24528,7 +24528,7 @@ typedef struct
 #define USB_OTG_GCCFG_FSVPLUS_Msk                (0x1U << USB_OTG_GCCFG_FSVPLUS_Pos)          /*!< 0x00000002 */
 #define USB_OTG_GCCFG_FSVPLUS                    USB_OTG_GCCFG_FSVPLUS_Msk                    /*!< Single-Ended DP2 indicator DP voltage level  */
 #define USB_OTG_GCCFG_FSVMINUS_Pos               (2U)
-#define USB_OTG_GCCFG_FSVMINUS_Msk               (0x1U << USB_OTG_GCCFG_FSVMINUS_Pos)        /*!< 0x00000004 */
+#define USB_OTG_GCCFG_FSVMINUS_Msk               0x1U << USB_OTG_GCCFG_FSVMINUS_Pos)         /*!< 0x00000004 */
 #define USB_OTG_GCCFG_FSVMINUS                   USB_OTG_GCCFG_FSVMINUS_Msk                  /*!< Single-Ended DM2 indicator DM voltage level  */
 #define USB_OTG_GCCFG_SESSVLD_Pos                (3U)
 #define USB_OTG_GCCFG_SESSVLD_Msk                (0x1U << USB_OTG_GCCFG_SESSVLD_Pos)          /*!< 0x00000008 */
@@ -26307,7 +26307,7 @@ typedef struct
 #define VREFBUF_CSR_VRS         VREFBUF_CSR_VRS_Msk                                 /*!<Voltage reference scale         */
 #define VREFBUF_CSR_VRS_0       (0x01UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x000O0010 */
 #define VREFBUF_CSR_VRS_1       (0x02UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x00000020 */
-#define VREFBUF_CSR_VRS_2       (0x04UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x00000030 */
+#define VREFBUF_CSR_VRS_2       (0x04UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x00000040 */
 #define VREFBUF_CSR_VRR_Pos     (3U)
 #define VREFBUF_CSR_VRR_Msk     (0x1UL << VREFBUF_CSR_VRR_Pos)                      /*!< 0x00000008 */
 #define VREFBUF_CSR_VRR         VREFBUF_CSR_VRR_Msk                                 /*!<Voltage reference buffer ready  */
